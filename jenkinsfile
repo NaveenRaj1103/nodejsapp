@@ -2,13 +2,13 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "yourdockerhubusername/daily-quotes-app"
+    IMAGE_NAME = "naveen741/app:latest"
   }
 
   stages {
     stage('Clone') {
       steps {
-        git 'https://github.com/your-username/daily-quotes-app.git'
+        git 'https://github.com/NaveenRaj1103/nodejsapp.git'
       }
     }
 
@@ -27,15 +27,6 @@ pipeline {
             docker.image("${IMAGE_NAME}:latest").push()
           }
         }
-      }
-    }
-
-    stage('Deploy to Kubernetes') {
-      steps {
-        sh '''
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-        '''
       }
     }
   }
