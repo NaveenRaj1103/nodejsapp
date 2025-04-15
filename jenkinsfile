@@ -15,7 +15,15 @@ pipeline {
                 sh 'docker build -t my-app-image .'
             }
         }
+            stage('Running Docker Image') {
+            steps {
+                echo 'Running docker container using docker image...'
+                sh 'docker run -d -p 3000:3000 my-app-image'
+            }
+        }
     }
+    }
+
 
     post {
         success {
