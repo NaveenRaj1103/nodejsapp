@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: quotes-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: quotes
+  ports:
+    - port: 80
+      targetPort: 3000
