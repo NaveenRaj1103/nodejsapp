@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Cloning the GitHub repository...'
                 git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
-                 credentialsId: 'github_cred'
+                credentialsId: 'github_cred'
             }
         }
 
