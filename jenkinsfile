@@ -1,34 +1,30 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    IMAGE_NAME = "app"
-  }
-
-  stages {
-    stage('Clone') {
-      steps {
-        git 'https://github.com/NaveenRaj1103/nodejsapp.git'
-      }
-    }
-
-    stage('Build Docker Image') {
-      steps {
-        script {
-          docker.build("${IMAGE_NAME}:latest")
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning the GitHub repository...'
+                git branch: 'main', url: 'https://github.com/NaveenRaj1103/nodejsapp.git'
+            }
         }
-      }
+
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image using Dockerfile...'
+                sh 'docker build -t my-app-image .'
+            }
+        }
     }
 
-    stage('Push to DockerHub') {
-      steps {
-        withDockerRegistry([ credentialsId: 'dockerhub-creds', url: '' ]) {
-          script {
-            docker.image("${IMAGE_NAME}:latest").push()
-          }
+    post {
+        success {
+            echo 'Docker image successfully built!'
         }
-      }
+        failure {
+            echo 'Pipeline failed during build. Please check the logs for more details.'
+        }
     }
-  }
 }
+
 
