@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning the GitHub repository...'
-                git branch: 'main', url: 'https://github.com/NaveenRaj1103/nodejsapp.git'
+                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
             }
         }
 
@@ -15,16 +15,15 @@ pipeline {
                 sh 'docker build -t my-app-image .'
             }
         }
-            stage('Running Docker Image') {
+        stage('Running Docker Image') {
             steps {
-                echo 'Running docker container using docker image...'
+                echo 'Building Docker image using Dockerfile...'
                 sh 'docker run -d -p 3000:3000 my-app-image'
             }
         }
+        
     }
-    }
-
-
+    
     post {
         success {
             echo 'Docker image successfully built!'
